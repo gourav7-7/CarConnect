@@ -14,44 +14,6 @@ from Exceptions.InvalidInputException import *
 from Exceptions.ReservationException import *
 from Exceptions.VehicleNotFoundException import *
 
-# Get connection string
-# conn_str = DBProprtyUtil.getConnectionString('CarConnect')
-
-# # Establish connection
-# conn = DBconnutil.getConnection(conn_str)
-# custServ = CustomerService()
-# vehiServ = VehicleService()
-
-# updateCust = Customer()
-# updateCust.setCustomerID(1)
-# updateCust.setFirstName("Jane")
-# updateCust.setLastName("Doe")
-# updateCust.setEmail("jane.doe@gmail.com")
-# updateCust.setPhone("9876543210")
-# updateCust.setAddress("456 Oak St, City, Country")
-# updateCust.setUsername("janedoe")
-# updateCust.setPassword("newpassword123")
-# updateCust.setRegistrationDate("2024-04-30")
-
-# custServ.UpdateCustomer(updateCust)
-
-# newVehicle = Vehicle()
-# newVehicle.setVehicleID(1)
-# newVehicle.setModel('A')
-# newVehicle.setMake('AA')
-# newVehicle.setYear('2020')
-# newVehicle.setColor('NAN')
-# newVehicle.setAvailability(1)
-# newVehicle.setDailyRate(50.45)
-# newVehicle.setRegistrationNumber('XX99XX9999')
-
-# vehiServ.AddVehicle(newVehicle)
-
-
-
-
-# Close connection
-# DBconnutil.closeDB(conn)
 class MainMenu:
     def __init__(self):
         self.authServ = AuthenticationService("CarConnect")
