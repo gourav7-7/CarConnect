@@ -1,8 +1,8 @@
-from IAdminService import IAdminService
+from DAO.IAdminService import IAdminService
 from Entity.Admin import Admin
 from util.DBPropertyUtil import DBProprtyUtil
 from util.DBconnutil import DBconnutil
-
+from Exceptions.AdminNotFoundException import AdminNotFoundException
  
 
 class AdminService(IAdminService):
@@ -12,8 +12,9 @@ class AdminService(IAdminService):
         self.adminid = AdminID
         stmt.execute(f"select * from Admin where AdminID = {self.adminid}")
         row = stmt.fetchall()
-        print(row)
         stmt.close()
+        conn.close()
+        return row
 
     def GetAdminByUsername(self,username):
         conn = DBconnutil.getConnection(DBProprtyUtil.getConnectionString('CarConnect'))
@@ -21,8 +22,9 @@ class AdminService(IAdminService):
         self.username = username
         stmt.execute(f"select * from admin where Username = '{self.username}'")
         row = stmt.fetchall()
-        print(row)
         stmt.close()
+        conn.close()
+        return row
 
     def RegisterAdmin(self,adminData):
         conn = DBconnutil.getConnection(DBProprtyUtil.getConnectionString('CarConnect'))
@@ -37,6 +39,13 @@ class AdminService(IAdminService):
         conn = DBconnutil.getConnection(DBProprtyUtil.getConnectionString('CarConnect'))
         stmt = conn.cursor()
         self.admindata = adminData
+
+        stmt.execute(f"select * from admin where AdminID = {self.adminid}")
+        exists = stmt.fetchone()
+        if exists is None:
+            stmt.close()
+            conn.close()
+            raise AdminNotFoundException()
         stmt.execute(f" update admin set FirstName = '{self.admindata.getFirstName()}', LastName = '{self.admindata.getLastName()}',Email = '{self.admindata.getEmail()}' ,PhoneNumber = '{self.admindata.getPhoneNumber()}' ,Username = '{self.admindata.getUsername()}',Password = '{self.admindata.getPassword()}' ,Role = '{self.admindata.getRole()}',JoinDate = '{self.admindata.getJoinDate()}' where AdminID = {self.admindata.getAdminID()} )")
         conn.commit() 
         print("Admin updated Successfully")
@@ -46,6 +55,12 @@ class AdminService(IAdminService):
         conn = DBconnutil.getConnection(DBProprtyUtil.getConnectionString('CarConnect'))
         stmt = conn.cursor()
         self.adminid = AdminID
+        stmt.execute(f"select * from admin where AdminID = {self.adminid}")
+        exists = stmt.fetchone()
+        if exists is None:
+            stmt.close()
+            conn.close()
+            raise AdminNotFoundException()
         stmt.execute(f"Delete from Admin where AdminID = {self.adminid}")
         conn.commit()
         print('Admin deleted successfully')

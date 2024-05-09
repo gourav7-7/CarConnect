@@ -65,14 +65,22 @@ class MainMenu:
     def getCustomerByID(self):
         custID = int(input("Enter Customer ID : "))
         try:
-            self.custServ.GetCustomerById(custID)
+           res = self.custServ.GetCustomerById(custID)
+           if res == []:
+               raise InvalidInputException
+           else:
+               print(res)
         except InvalidInputException as e:
             print(e)
 
     def getCustomerByUname(self):
         uname = input("Enter Customer Username : ")
         try:
-            self.custServ.GetCustomerByUsername(uname)
+            res = self.custServ.GetCustomerByUsername(uname)
+            if res == []:
+               raise InvalidInputException
+            else:
+                print(res)
         except InvalidInputException as e:
             print(e)
 
@@ -95,7 +103,7 @@ class MainMenu:
     def updateCustomer(self):
         cust = Customer()
         cust.setCustomerID(int(input("Enter Customer ID to Update : ")))
-        cust.setFirstName(input("Enter First Nmae : "))
+        cust.setFirstName(input("Enter First Name : "))
         cust.setLastName(input("Enter Last Name : "))
         cust.setEmail(input("Enter Customer Email : "))
         cust.setPhoneNumber(input("Enter Phone number : "))
@@ -105,6 +113,7 @@ class MainMenu:
         cust.setRegistrationDate(input("Enter Registration Date (YYYY-MM-DD) : "))
         try:
             self.custServ.UpdateCustomer(cust)
+            print("Customer updated successfully!")
         except InvalidInputException as e:
             print(e)
 
@@ -118,7 +127,11 @@ class MainMenu:
     def getVehiByID(self):
         v_ID = int(input("Enter Vehicle ID : "))
         try:
-            self.vehiServ.GetVehicleById(v_ID)
+            res = self.vehiServ.GetVehicleById(v_ID)
+            if res is None:
+                raise VehicleNotFoundException
+            else:
+                print(res)
         except VehicleNotFoundException as e:
             print(e)
 
@@ -164,17 +177,32 @@ class MainMenu:
         except VehicleNotFoundException as e:
             print(e)
 
+    def getAvVehi(self):
+        try:
+            self.vehiServ.GetAvailableVehicles()
+        except VehicleNotFoundException as e:
+            print(e)
+
+
     def getResByID(self):
         resID = int(input("Enter Reservation ID : "))
         try:
-            self.resvServ.GetReservationById(resID)
+            res = self.resvServ.GetReservationById(resID)
+            if res is None:
+                raise ReservationException
+            else:
+                print(res)
         except ReservationException as e:
             print(e)
 
     def getResByCustID(self):
         custID = int(input("Enter Customer ID : "))
         try:
-            self.resvServ.GetReservationsByCustomerId(custID)
+            res = self.resvServ.GetReservationsByCustomerId(custID)
+            if res is None:
+                raise ReservationException
+            else:
+                print(res)
         except ReservationException as e:
             print(e)
 
@@ -216,14 +244,22 @@ class MainMenu:
     def getAdminByID(self):
         adminid = int(input("Enter Admin ID : "))
         try:
-            self.adminServ.GetAdminById(adminid)
+            res = self.adminServ.GetAdminById(adminid)
+            if res is None:
+                raise AdminNotFoundException
+            else:
+                print(res)
         except AdminNotFoundException as e:
             print(e)
 
     def getAdminByUname(self):
         auname = input("Enter Admin Username : ")
         try:
-            self.adminServ.GetAdminByUsername(auname)
+            res = self.adminServ.GetAdminByUsername(auname)
+            if res is None:
+                raise AdminNotFoundException
+            else:
+                print(res)
         except AdminNotFoundException as e:
             print(e)
 
@@ -288,7 +324,7 @@ class MainMenu:
             elif choice == "7":
                 self.getVehiByID()
             elif choice == "8":
-                self.getVehiByID()
+                self.getAvVehi()
             elif choice == "9":
                 self.addVehi()
             elif choice == "10":
@@ -320,6 +356,11 @@ class MainMenu:
                 break
             else:
                 print("Invalid choice. Please enter a number from 1 to 22.")
+            
+            option = input("Do you want to continue (Y/N)? ")
+            if option.upper() != 'Y':
+                break
+
 
 if __name__ == "__main__":
     menu = MainMenu()

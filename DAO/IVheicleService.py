@@ -7,7 +7,7 @@ class IVehicleService(ABC):
         pass
 
     @abstractmethod
-    def GetAvailableVehicles(self ):
+    def GetAvailableVehicles(self):
         pass 
 
     @abstractmethod

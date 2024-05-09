@@ -7,7 +7,7 @@ class AuthenticationService:
         query = f"SELECT * FROM customer WHERE username = '{username}' AND password = '{password}'"
         result = self.db_context.runQuery(query)
         if result:
-            print("User Authenticated")
+            return "User Authenticated"
         else:
-            print("Try Again")
+            return "Try Again"
 
