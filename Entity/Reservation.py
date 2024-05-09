@@ -25,10 +25,10 @@ class Reservation:
        self.VehicleID = VehicleID
 
     def setStartDate(self,StartDate):
-       self.StartDate = datetime.strptime(StartDate, '%Y-%m-%d').date()
+       self.StartDate = datetime.datetime.strptime(StartDate, '%Y-%m-%d').date()
 
     def setEndDate(self,EndDate):
-       self.EndDate = datetime.strptime(EndDate, '%Y').date()
+       self.EndDate = datetime.datetime.strptime(EndDate, '%Y-%m-%d').date()
 
     def setTotalCost(self,TotalCost):
        self.TotalCost = TotalCost

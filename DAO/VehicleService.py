@@ -52,7 +52,7 @@ class VehicleService(IVehicleService):
         conn = DBconnutil.getConnection(DBProprtyUtil.getConnectionString('CarConnect'))
         stmt = conn.cursor()
         self.vehicleData = vehicleData
-        stmt.execute(f"select * from vwhicle where VehicleID = {self.vehicleid}")
+        stmt.execute(f"select * from vwhicle where VehicleID = {self.vehicleData.getVehicleID()}")
         exists = stmt.fetchone()
         if exists is None:
             stmt.close()
@@ -67,7 +67,7 @@ class VehicleService(IVehicleService):
         conn = DBconnutil.getConnection(DBProprtyUtil.getConnectionString('CarConnect'))
         stmt = conn.cursor()
         self.vehicleid = vehicleID
-        stmt.execute(f"select * from vwhicle where VehicleID = {self.vehicleid}")
+        stmt.execute(f"select * from vehicle where VehicleID = {self.vehicleid}")
         exists = stmt.fetchone()
         if exists is None:
             stmt.close()

@@ -57,7 +57,7 @@ class CustomerService(ICustomerService) :
             print("Customer information updated successfully!")
         else:
            
-            raise InvalidInputException()
+            raise InvalidInputException("Customer Not Found !!")
 
         stmt.close()  
         conn.close()
@@ -67,12 +67,12 @@ class CustomerService(ICustomerService) :
         conn = DBconnutil.getConnection(DBProprtyUtil.getConnectionString('CarConnect'))
         stmt = conn.cursor()
         self.customerID = customerId
-        stmt.execute(f"selecct * from customer where CustomerID = {self.customerID}")
-        existing = stmt.fetchone
+        stmt.execute(f"select * from customer where CustomerID = {self.customerID}")
+        existing = stmt.fetchone()
         if existing is None:
             stmt.close()
             conn.close()
-            raise InvalidInputException()
+            raise InvalidInputException("Customer Not Found")
         
         stmt.execute(f"DELETE FROM customer WHERE CustomerID={self.customerID}")
         conn.commit()

@@ -23,30 +23,49 @@ class MainMenu:
         self.adminServ = AdminService()
 
 
-    def Menu(self):
-        print("\ Main Menu : ")
+    def CustomerMenu(self):
+        print("\nCustomer Menu: ")
         print("1. Authenticate User")
         print("2. Get Customer by ID")
-        print("3. Get Customer by Username")
-        print("4. Register New Customer")
-        print("5. Update Existing Customer")
-        print("6. Delete Customer")
-        print("7. Get Vehicle by ID")
-        print("8. Get Available Vehicles")
-        print("9. Add Vehicle")
-        print("10. Update Existing Vehicle")
-        print("11. Remove Vehicle")
-        print("12. Get Reservation by ID")
-        print("13. Get Reservation by Customer ID")
-        print("14. Create Reservation")
-        print("15. Update Reservation")
-        print("16. Cancel Reservation")
-        print("17. Get Admin by ID")
-        print("18. Get Admin by Username")
-        print("19. Register Admin")
-        print("20. Update Admin")
-        print("21. Delete Admin")
-        print("22. Exit")
+        print("3. Register New Customer")
+        print("4. Update Existing Customer")
+        print("5. Delete Customer")
+        print("6. Exit")
+
+    def VehicleMenu(self):
+        print("\nVehicle Menu: ")
+        print("1. Get Vehicle by ID")
+        print("2. Get Available Vehicles")
+        print("3. Add Vehicle")
+        print("4. Update Existing Vehicle")
+        print("5. Remove Vehicle")
+        print("6. Exit")
+
+    def ReservationMenu(self):
+        print("\nReservation Menu: ")
+        print("1. Get Reservation by ID")
+        print("2. Get Reservation by Customer ID")
+        print("3. Create Reservation")
+        print("4. Update Reservation")
+        print("5. Cancel Reservation")
+        print("6. Exit")
+
+    def AdminMenu(self):
+        print("\nAdmin Menu: ")
+        print("1. Get Admin by ID")
+        print("2. Get Admin by Username")
+        print("3. Register Admin")
+        print("4. Update Admin")
+        print("5. Delete Admin")
+        print("6. Exit")
+
+    def Menu(self):
+        print("\nMain Menu:")
+        print("1. Customer")
+        print("2. Vehicle")
+        print("3. Reservation")
+        print("4. Admin")
+        print("5. Exit")
 
     
     def authUser(self):
@@ -238,7 +257,7 @@ class MainMenu:
         resID = int(input("Enter Reservation ID to cancel : "))
         try:
             self.resvServ.CancelReservation(resID)
-        except InvalidInputException as e:
+        except ReservationException as e:
             print(e)
 
     def getAdminByID(self):
@@ -304,62 +323,92 @@ class MainMenu:
 
     def Exit(self):
         print("Exiting ...")
+        print("Exited")
 
     def run(self):
         while True:
             self.Menu()
-            choice = input("Enter your choice : ")
+            choice = input("Enter your choice: ")
             if choice == "1":
-                self.authUser()
+                self.CustomerMenu()
+                customer_choice = input("Enter your choice: ")
+                if customer_choice == "1":
+                    self.authUser()
+                elif customer_choice == "2":
+                    self.getCustomerByID()
+                elif customer_choice == "3":
+                    self.regCustomer()
+                elif customer_choice == "4":
+                    self.updateCustomer()
+                elif customer_choice == "5":
+                    self.deleteCust()
+                elif customer_choice == "6":
+                    continue
+                else:
+                    print("Invalid choice. Please enter a number from 1 to 5.")
             elif choice == "2":
-                self.getCustomerByID()
+                self.VehicleMenu()
+                vehicle_choice = input("Enter your choice: ")
+                if vehicle_choice == "1":
+                    self.getVehiByID()
+                elif vehicle_choice == "2":
+                    self.getAvVehi()
+                elif vehicle_choice == "3":
+                    self.addVehi()
+                elif vehicle_choice == "4":
+                    self.updateVehi()
+                elif vehicle_choice == "5":
+                    self.rmVehi()
+                elif vehicle_choice == "6":
+                    continue
+                else:
+                    print("Invalid choice. Please enter a number from 1 to 5.")
+
             elif choice == "3":
-                self.getCustomerByUname()
+                self.ReservationMenu()
+                reservation_choice = input("Enter your choice: ")
+                if reservation_choice == "1":
+                    self.getResByID()
+                elif reservation_choice == "2":
+                    self.getResByCustID()
+                elif reservation_choice == "3":
+                    self.createRes()
+                elif reservation_choice == "4":
+                    self.updateRes()
+                elif reservation_choice == "5":
+                    self.cancelRes()
+                elif reservation_choice == "6":
+                    continue
+                else:
+                    print("Invalid choice. Please enter a number from 1 to 5.")
+                    
             elif choice == "4":
-                self.regCustomer()
+                self.AdminMenu()
+                admin_choice = input("Enter your choice: ")
+                if admin_choice == "1":
+                    self.getAdminByID()
+                elif admin_choice == "2":
+                    self.getAdminByUname()
+                elif admin_choice == "3":
+                    self.regAdmin()
+                elif admin_choice == "4":
+                    self.updateAdmin()
+                elif admin_choice == "5":
+                    self.deleteAdmin()
+                elif admin_choice == "6":
+                    continue
+                else:
+                    print("Invalid choice. Please enter a number from 1 to 5.")
             elif choice == "5":
-                self.updateCustomer()
-            elif choice == "6":
-                self.deleteCust()
-            elif choice == "7":
-                self.getVehiByID()
-            elif choice == "8":
-                self.getAvVehi()
-            elif choice == "9":
-                self.addVehi()
-            elif choice == "10":
-                self.updateVehi()
-            elif choice == "11":
-                self.rmVehi()
-            elif choice == "12":
-                self.getResByID()
-            elif choice == "13":
-                self.getResByCustID()
-            elif choice == "14":
-                self.createRes()
-            elif choice == "15":
-                self.updateRes()
-            elif choice == "16":
-                self.cancelRes()
-            elif choice == "17":
-                self.getAdminByID()
-            elif choice == "18":
-                self.getAdminByUname()
-            elif choice == "19":
-                self.regAdmin()
-            elif choice == "20":
-                self.updateAdmin()
-            elif choice == "21":
-                self.deleteAdmin()
-            elif choice == "22":
                 self.Exit()
                 break
             else:
-                print("Invalid choice. Please enter a number from 1 to 22.")
+                print("Invalid choice. Please enter a number from 1 to 5.")
             
             option = input("Do you want to continue (Y/N)? ")
             if option.upper() != 'Y':
-                break
+                self.Exit()
+                return
 
 
 if __name__ == "__main__":
