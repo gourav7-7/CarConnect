@@ -90,7 +90,7 @@ class MainMenu:
            else:
                print(res)
         except InvalidInputException as e:
-            print(e)
+            print("Customer Not Found !",e)
 
     def getCustomerByUname(self):
         uname = input("Enter Customer Username : ")
@@ -101,38 +101,47 @@ class MainMenu:
             else:
                 print(res)
         except InvalidInputException as e:
-            print(e)
+            print("Customer Not Found !",e)
 
     def regCustomer(self):
         cust = Customer()
-        cust.setCustomerID(int(input("Enter Customer ID : ")))
-        cust.setFirstName(input("Enter First Nmae : "))
-        cust.setLastName(input("Enter Last Name : "))
-        cust.setEmail(input("Enter Customer Email : "))
-        cust.setPhoneNumber(input("Enter Phone number : "))
-        cust.setAddress(input("Enter Address : "))
-        cust.setUsername(input("Enter Username : "))
-        cust.setPassword(input("Enter Password : "))
-        cust.setRegistrationDate(input("Enter Registration Date (YYYY-MM-DD) : "))
+        try:
+            cust.setCustomerID(int(input("Enter Customer ID : ")))
+            cust.setFirstName(input("Enter First Name : "))
+            cust.setLastName(input("Enter Last Name : "))
+            cust.setEmail(input("Enter Customer Email : "))
+            cust.setPhoneNumber(input("Enter Phone number : "))
+            cust.setAddress(input("Enter Address : "))
+            cust.setUsername(input("Enter Username : "))
+            cust.setPassword(input("Enter Password : "))
+            cust.setRegistrationDate(input("Enter Registration Date (YYYY-MM-DD) : "))
+        except ValueError:
+            print("Invalid input data. Please enter valid input.")
+            return  # Return to prevent further execution
+    
         try:
             self.custServ.RegisterCustomer(cust)
         except InvalidInputException as e:
-            print(e)        
+            print(e)
+  
 
     def updateCustomer(self):
-        cust = Customer()
-        cust.setCustomerID(int(input("Enter Customer ID to Update : ")))
-        cust.setFirstName(input("Enter First Name : "))
-        cust.setLastName(input("Enter Last Name : "))
-        cust.setEmail(input("Enter Customer Email : "))
-        cust.setPhoneNumber(input("Enter Phone number : "))
-        cust.setAddress(input("Enter Address : "))
-        cust.setUsername(input("Enter Username : "))
-        cust.setPassword(input("Enter Password : "))
-        cust.setRegistrationDate(input("Enter Registration Date (YYYY-MM-DD) : "))
         try:
-            self.custServ.UpdateCustomer(cust)
-            print("Customer updated successfully!")
+            cust = Customer()
+            cust.setCustomerID(int(input("Enter Customer ID to Update : ")))
+            cust.setFirstName(input("Enter First Name : "))
+            cust.setLastName(input("Enter Last Name : "))
+            cust.setEmail(input("Enter Customer Email : "))
+            cust.setPhoneNumber(input("Enter Phone number : "))
+            cust.setAddress(input("Enter Address : "))
+            cust.setUsername(input("Enter Username : "))
+            cust.setPassword(input("Enter Password : "))
+            cust.setRegistrationDate(input("Enter Registration Date (YYYY-MM-DD) : "))
+        except ValueError:
+            print("Invalid input data. Please enter valid input.")
+            return  # Return to prevent further execution
+        try:
+            self.custServ.RegisterCustomer(cust)
         except InvalidInputException as e:
             print(e)
 
@@ -147,7 +156,7 @@ class MainMenu:
         v_ID = int(input("Enter Vehicle ID : "))
         try:
             res = self.vehiServ.GetVehicleById(v_ID)
-            if res is None:
+            if res == []:
                 raise VehicleNotFoundException
             else:
                 print(res)
@@ -161,30 +170,38 @@ class MainMenu:
             print(e)
 
     def addVehi(self):
-        vehi = Vehicle()
-        vehi.setVehicleID(int(input("Enter Vehicle ID : ")))
-        vehi.setMake(input("Enter Make of Vehicle : "))
-        vehi.setModel(input("Enter Model of Vehicle : "))
-        vehi.setYear(input("Enter Year : "))
-        vehi.setColor(input("Enter Color : "))
-        vehi.setRegistrationNumber(input("Enter Registration Number : "))
-        vehi.setAvailability(int(input("Enter 1 for Available or 0 for Unavailable: ")))
-        vehi.setDailyRate(float(input("Enter Daily Rate : ")))
+        try:
+            vehi = Vehicle()
+            vehi.setVehicleID(int(input("Enter Vehicle ID : ")))
+            vehi.setMake(input("Enter Make of Vehicle : "))
+            vehi.setModel(input("Enter Model of Vehicle : "))
+            vehi.setYear(input("Enter Year : "))
+            vehi.setColor(input("Enter Color : "))
+            vehi.setRegistrationNumber(input("Enter Registration Number : "))
+            vehi.setAvailability(int(input("Enter 1 for Available or 0 for Unavailable: ")))
+            vehi.setDailyRate(float(input("Enter Daily Rate : ")))
+        except ValueError:
+            print("Invalid input data. Please enter valid input.")
+            return  # Return to prevent further execution
         try:
             self.vehiServ.AddVehicle(vehi)
         except InvalidInputException as e:
             print(e)
 
     def updateVehi(self):
-        vehi = Vehicle()
-        vehi.setVehicleID(int(input("Enter Vehicle ID to update : ")))
-        vehi.setMake(input("Enter Make of Vehicle : "))
-        vehi.setModel(input("Enter Model of Vehicle : "))
-        vehi.setYear(input("Enter Year : "))
-        vehi.setColor(input("Enter Color : "))
-        vehi.setRegistrationNumber(input("Enter Registration Number : "))
-        vehi.setAvailability(int(input("Enter 1 for Available or 0 for Unavailable: ")))
-        vehi.setDailyRate(float(input("Enter Daily Rate : ")))
+        try:
+            vehi = Vehicle()
+            vehi.setVehicleID(int(input("Enter Vehicle ID to update : ")))
+            vehi.setMake(input("Enter Make of Vehicle : "))
+            vehi.setModel(input("Enter Model of Vehicle : "))
+            vehi.setYear(input("Enter Year : "))
+            vehi.setColor(input("Enter Color : "))
+            vehi.setRegistrationNumber(input("Enter Registration Number : "))
+            vehi.setAvailability(int(input("Enter 1 for Available or 0 for Unavailable: ")))
+            vehi.setDailyRate(float(input("Enter Daily Rate : ")))
+        except ValueError:
+            print("Invalid input data. Please enter valid input.")
+            return  # Return to prevent further execution
         try:
             self.vehiServ.UpdateVehicle(vehi)
         except VehicleNotFoundException as e:
@@ -207,7 +224,7 @@ class MainMenu:
         resID = int(input("Enter Reservation ID : "))
         try:
             res = self.resvServ.GetReservationById(resID)
-            if res is None:
+            if res == []:
                 raise ReservationException
             else:
                 print(res)
@@ -218,7 +235,7 @@ class MainMenu:
         custID = int(input("Enter Customer ID : "))
         try:
             res = self.resvServ.GetReservationsByCustomerId(custID)
-            if res is None:
+            if res == []:
                 raise ReservationException
             else:
                 print(res)
@@ -226,28 +243,37 @@ class MainMenu:
             print(e)
 
     def createRes(self):
-        resv = Reservation()
-        resv.setReservationID(int(input("Enter Reservation ID : ")))
-        resv.setCustomerID(int(input("Enter Customer ID : ")))
-        resv.setVehicleID(int(input("Enter Vehicle ID : ")))
-        resv.setStatus(input("Enter Status ( pending, confirmed, completed) : "))
-        resv.setStartDate(input("Enter Start Date (YYYY-MM-DD) : "))
-        resv.setEndDate(input("Enter End Date (YYYY-MM-DD) : "))  
-        resv.setTotalCost(float(input("Enter total cost : ")))
+        try:
+            resv = Reservation()
+            resv.setReservationID(int(input("Enter Reservation ID : ")))
+            resv.setCustomerID(int(input("Enter Customer ID : ")))
+            resv.setVehicleID(int(input("Enter Vehicle ID : ")))
+            resv.setStatus(input("Enter Status ( pending, confirmed, completed) : "))
+            resv.setStartDate(input("Enter Start Date (YYYY-MM-DD) : "))
+            resv.setEndDate(input("Enter End Date (YYYY-MM-DD) : "))  
+            resv.setTotalCost(float(input("Enter total cost : ")))
+        except ValueError:
+            print("Invalid input data. Please enter valid input.")
+            return  # Return to prevent further execution
         try:
             self.resvServ.CreateReservation(resv)
+            raise ReservationException("Invalid Input Field, Check Values Again")
         except ReservationException as e:
             print(e)
 
     def updateRes(self):
-        resv = Reservation()
-        resv.setReservationID(int(input("Enter Reservation ID To UPDATE : ")))
-        resv.setCustomerID(int(input("Enter Customer ID : ")))
-        resv.setVehicleID(int(input("Enter Vehicle ID : ")))
-        resv.setStatus(input("Enter Status ( pending, confirmed, completed) : "))
-        resv.setStartDate(input("Enter Start Date (YYYY-MM-DD) : "))
-        resv.setEndDate(input("Enter End Date (YYYY-MM-DD) : "))  
-        resv.setTotalCost(float(input("Enter total cost : ")))
+        try:
+            resv = Reservation()
+            resv.setReservationID(int(input("Enter Reservation ID To UPDATE : ")))
+            resv.setCustomerID(int(input("Enter Customer ID : ")))
+            resv.setVehicleID(int(input("Enter Vehicle ID : ")))
+            resv.setStatus(input("Enter Status ( pending, confirmed, completed) : "))
+            resv.setStartDate(input("Enter Start Date (YYYY-MM-DD) : "))
+            resv.setEndDate(input("Enter End Date (YYYY-MM-DD) : "))  
+            resv.setTotalCost(float(input("Enter total cost : ")))
+        except ValueError:
+            print("Invalid input data. Please enter valid input.")
+            return  # Return to prevent further execution
         try:
             self.resvServ.UpdateReservation(resv)
         except ReservationException as e:
@@ -264,7 +290,7 @@ class MainMenu:
         adminid = int(input("Enter Admin ID : "))
         try:
             res = self.adminServ.GetAdminById(adminid)
-            if res is None:
+            if res == []:
                 raise AdminNotFoundException
             else:
                 print(res)
@@ -275,7 +301,7 @@ class MainMenu:
         auname = input("Enter Admin Username : ")
         try:
             res = self.adminServ.GetAdminByUsername(auname)
-            if res is None:
+            if res == []:
                 raise AdminNotFoundException
             else:
                 print(res)
@@ -283,32 +309,40 @@ class MainMenu:
             print(e)
 
     def regAdmin(self):
-        ad = Admin()
-        ad.setAdminID(int(input("Enter Admin ID : ")))
-        ad.setFirstName(input("Enter First Name : "))
-        ad.setLastName(input("Enter Last Name : "))
-        ad.setPhoneNumber(input("Enter Phone Number : "))
-        ad.setEmail(input("Enter Email : "))
-        ad.setRole(input("Enter Role : "))
-        ad.setUsername(input("Enter UserName : "))
-        ad.setPassword(input("Enter PassWord : "))
-        ad.setJoinDate(input("Enter Joining Date (YYYY-MM-DD) : "))
+        try:
+            ad = Admin()
+            ad.setAdminID(int(input("Enter Admin ID : ")))
+            ad.setFirstName(input("Enter First Name : "))
+            ad.setLastName(input("Enter Last Name : "))
+            ad.setPhoneNumber(input("Enter Phone Number : "))
+            ad.setEmail(input("Enter Email : "))
+            ad.setRole(input("Enter Role : "))
+            ad.setUsername(input("Enter UserName : "))
+            ad.setPassword(input("Enter PassWord : "))
+            ad.setJoinDate(input("Enter Joining Date (YYYY-MM-DD) : "))
+        except ValueError:
+            print("Invalid input data. Please enter valid input.")
+            return  # Return to prevent further execution
         try:
             self.adminServ.RegisterAdmin(ad)
         except InvalidInputException as e:
             print(e)
 
     def updateAdmin(self):
-        ad = Admin()
-        ad.setAdminID(int(input("Enter Admin ID To UPDATE : ")))
-        ad.setFirstName(input("Enter First Name : "))
-        ad.setLastName(input("Enter Last Name : "))
-        ad.setPhoneNumber(input("Enter Phone Number : "))
-        ad.setEmail(input("Enter Email : "))
-        ad.setRole(input("Enter Role : "))
-        ad.setUsername(input("Enter UserName : "))
-        ad.setPassword(input("Enter PassWord : "))
-        ad.setJoinDate(input("Enter Joining Date (YYYY-MM-DD) : "))
+        try:
+            ad = Admin()
+            ad.setAdminID(int(input("Enter Admin ID : ")))
+            ad.setFirstName(input("Enter First Name : "))
+            ad.setLastName(input("Enter Last Name : "))
+            ad.setPhoneNumber(input("Enter Phone Number : "))
+            ad.setEmail(input("Enter Email : "))
+            ad.setRole(input("Enter Role : "))
+            ad.setUsername(input("Enter UserName : "))
+            ad.setPassword(input("Enter PassWord : "))
+            ad.setJoinDate(input("Enter Joining Date (YYYY-MM-DD) : "))
+        except ValueError:
+            print("Invalid input data. Please enter valid input.")
+            return  # Return to prevent further execution
         try: 
             self.adminServ.UpdateAdmin(ad)
         except AdminNotFoundException as e:

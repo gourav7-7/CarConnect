@@ -27,16 +27,18 @@ class VehicleService(IVehicleService):
         else:
             return False
         
-    def GetAllVehicles(self):
-        conn = DBconnutil.getConnection(DBProprtyUtil.getConnectionString('CarConnect'))
-        stmt = conn.cursor()
-        stmt.execute(f"select * from vehicle")
-        row = stmt.fetchall()
-        if row:
-            for i in row:
-                print(i)
-            return True
-        stmt.close()
+    def GetAvailableVehicles(self):
+            conn = DBconnutil.getConnection(DBProprtyUtil.getConnectionString('CarConnect'))
+            stmt = conn.cursor()
+            stmt.execute("SELECT * FROM vehicle WHERE availability = 1")
+            rows = stmt.fetchall()
+            if rows:
+                for row in rows:
+                    print(row)
+                return True
+            else:
+                print("No available vehicles found.")
+                return False
 
 
     def AddVehicle(self,vehicleData):

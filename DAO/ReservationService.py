@@ -30,15 +30,18 @@ class ReservationService(IReservationService):
         conn = DBconnutil.getConnection(DBProprtyUtil.getConnectionString('CarConnect'))
         stmt = conn.cursor()
         self.resvData = reservationData
-        stmt.execute(f"select * from reservation where reservationID = {self.resvID}")
-        exists = stmt.fetchone()
-        if exists is None:
-            raise ReservationException()
-        
-        stmt.execute(f"insert into Reservation values({self.resvData.getReservationID()}, {self.resvData.getCustomerID()}, {self.resvData.getVehicleID()}, '{self.resvData.getStartDate()}', '{self.resvData.getEndDate()}', {self.resvData.getTotalCost()}, '{self.resvData.getStatus()}')") 
-        conn.commit()
-        print("Reservation created Successfully")
-        stmt.close()
+    
+        try:
+            stmt.execute(f"insert into Reservation values({self.resvData.getReservationID()}, {self.resvData.getCustomerID()}, {self.resvData.getVehicleID()}, '{self.resvData.getStartDate()}', '{self.resvData.getEndDate()}', {self.resvData.getTotalCost()}, '{self.resvData.getStatus()}')") 
+            conn.commit()
+            print("Reservation created Successfully")
+        except Exception as e:
+            conn.rollback()
+            raise ReservationException(f"Error creating reservation: {e}")
+        finally:
+            stmt.close()
+            conn.close()
+
     
     def UpdateReservation(self, reservationData):
         conn = DBconnutil.getConnection(DBProprtyUtil.getConnectionString('CarConnect'))
@@ -48,11 +51,16 @@ class ReservationService(IReservationService):
         row = stmt.fetchone()
         if row is None:
             raise ReservationException("Reservation Not Found !!")
-        
-        stmt.execute(f"update Reservation set CustomerID = {self.resvData.getCustomerID()}, VehicleID =  {self.resvData.getVehicleID()}, SatrtDate = '{self.resvData.getStartDate()}', EndDate = '{self.resvData.getEndDate()}', TotalCost = {self.resvData.getTotalCost()}, Status = '{self.resvData.getStatus()}' where ReservationID = {self.resvData.getReservationID()} ") 
-        conn.commit()
-        print("Reservation Updated Successfully")
-        stmt.close()
+        try:
+            stmt.execute(f"update Reservation set CustomerID = {self.resvData.getCustomerID()}, VehicleID =  {self.resvData.getVehicleID()}, SatrtDate = '{self.resvData.getStartDate()}', EndDate = '{self.resvData.getEndDate()}', TotalCost = {self.resvData.getTotalCost()}, Status = '{self.resvData.getStatus()}' where ReservationID = {self.resvData.getReservationID()} ") 
+            conn.commit()
+            print("Reservation Updated Successfully")
+        except Exception as e:
+            conn.rollback()
+            raise ReservationException(f"Error creating reservation: {e}")
+        finally:
+            stmt.close()
+            conn.close()
 
     def CancelReservation(self, reservationId):
         conn = DBconnutil.getConnection(DBProprtyUtil.getConnectionString('CarConnect'))
@@ -62,7 +70,12 @@ class ReservationService(IReservationService):
         row = stmt.fetchone()
         if row is None:
             raise ReservationException("Reservation Not Found !!")
-        
-        stmt.execute(f"Delete from reservation where ReservationID = {self.resvID}")
-        conn.commit()
-        stmt.close()
+        try:
+            stmt.execute(f"Delete from reservation where ReservationID = {self.resvID}")
+            conn.commit()
+        except Exception as e:
+            conn.rollback()
+            raise ReservationException(f"Error creating reservation: {e}")
+        finally:
+            stmt.close()
+            conn.close()
