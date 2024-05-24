@@ -1,65 +1,65 @@
 
 class Vehicle:
     def __init__(self):
-        self.VehicleID = '',
-        self.Model = '', 
-        self.Make = '', 
-        self.Year = '',
-        self.Color = '',
-        self.RegistrationNumber = '',
-        self.Availability = '', 
-        self.DailyRate = '' 
+        self.__VehicleID = '',
+        self.__Model = '', 
+        self.__Make = '', 
+        self.__Year = '',
+        self.__Color = '',
+        self.__RegistrationNumber = '',
+        self.__Availability = '', 
+        self.__DailyRate = '' 
 
 # Setters
     def  setVehicleID(self,VehicleID):
-        self.VehicleID = VehicleID
+        self.__VehicleID = VehicleID
 
     def  setModel(self,Model):
-        self.Model = Model    
+        self.__Model = Model    
         
     def  setMake(self,Make):
-        self.Make = Make
+        self.__Make = Make
 
     def  setYear(self,Year):
-        self.Year = Year
+        self.__Year = Year
 
     def  setColor(self,Color):
-        self.Color = Color
+        self.__Color = Color
 
     def  setRegistrationNumber(self,RegistrationNumber):
-        self.RegistrationNumber = RegistrationNumber
+        self.__RegistrationNumber = RegistrationNumber
 
     def  setAvailability(self,Availability):
-        self.Availabilityrname = Availability
+        self.__Availabilityrname = Availability
 
     def  setDailyRate(self,DailyRate):
-        self.DailyRate = DailyRate
+        self.__DailyRate = DailyRate
 
 
 # getters
     def  getVehicleID(self):
-        return self.VehicleID
+        return self.__VehicleID
 
     def  getModel(self):
-        return self.Model    
+        return self.__Model    
         
     def  getMake(self):
-        return self.Make 
+        return self.__Make 
 
     def  getYear(self):
-        return self.Year 
+        return self.__Year 
 
     def  getColor(self):
-        return self.Color 
+        return self.__Color 
 
     def  getRegistrationNumber(self):
-        return self.RegistrationNumber 
+        return self.__RegistrationNumber 
 
     def  getAvailability(self):
-        return self.Availabilityrname 
+        return self.__Availabilityrname 
 
     def  getDailyRate(self):
-        return self.DailyRate
+        return self.__DailyRate
 
 
 

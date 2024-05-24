@@ -1,63 +1,59 @@
-# • Reservation: 
-# • Properties: ReservationID, CustomerID, VehicleID, StartDate, EndDate, TotalCost, 
-# Status 
-# • Methods: CalculateTotalCost() 
 import datetime
 class Reservation:
     def __init__(self):
-        self.ReservationID = '' 
-        self.CustomerID = '' 
-        self.VehicleID = ''
-        self.StartDate = ''
-        self.EndDate = ''
-        self.TotalCost = ''
-        self.Status = ''
+        self.__ReservationID = '' 
+        self.__CustomerID = '' 
+        self.__VehicleID = ''
+        self.__StartDate = ''
+        self.__EndDate = ''
+        self.__TotalCost = ''
+        self.__Status = ''
 
 # Setters
 
     def setReservationID(self,ReservationID):
-       self.ReservationID = ReservationID
+       self.__ReservationID = ReservationID
 
     def setCustomerID(self,CustomerID):
-       self.CustomerID = CustomerID
+       self.__CustomerID = CustomerID
 
     def setVehicleID(self,VehicleID):
-       self.VehicleID = VehicleID
+       self.__VehicleID = VehicleID
 
     def setStartDate(self,StartDate):
-       self.StartDate = datetime.datetime.strptime(StartDate, '%Y-%m-%d').date()
+       self.__StartDate = datetime.datetime.strptime(StartDate, '%Y-%m-%d').date()
 
     def setEndDate(self,EndDate):
-       self.EndDate = datetime.datetime.strptime(EndDate, '%Y-%m-%d').date()
+       self.__EndDate = datetime.datetime.strptime(EndDate, '%Y-%m-%d').date()
 
     def setTotalCost(self,TotalCost):
-       self.TotalCost = TotalCost
+       self.__TotalCost = TotalCost
 
     def setStatus(self,Status):
-       self.Status = Status
+       self.__Status = Status
     
 # Getters
 
     def getReservationID(self):
-       return self.ReservationID
+       return self.__ReservationID
 
     def getCustomerID(self):
-       return self.CustomerID 
+       return self.__CustomerID 
 
     def getVehicleID(self):
-       return self.VehicleID
+       return self.__VehicleID
 
     def getStartDate(self):
-       return self.StartDate
+       return self.__StartDate
 
     def getEndDate(self):
-       return self.EndDate
+       return self.__EndDate
 
     def getTotalCost(self):
-       return self.TotalCost
+       return self.__TotalCost
     
     def CalculateTotalCost(self):
        pass
     
     def getStatus(self):
-       return self.Status
+       return self.__Status

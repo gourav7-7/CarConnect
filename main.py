@@ -90,7 +90,7 @@ class MainMenu:
            else:
                print(res)
         except InvalidInputException as e:
-            print("Customer Not Found !",e)
+            print("Customer Not Found !")
 
     def getCustomerByUname(self):
         uname = input("Enter Customer Username : ")
@@ -101,7 +101,7 @@ class MainMenu:
             else:
                 print(res)
         except InvalidInputException as e:
-            print("Customer Not Found !",e)
+            print("Customer Not Found !")
 
     def regCustomer(self):
         cust = Customer()
@@ -448,7 +448,3 @@ class MainMenu:
 if __name__ == "__main__":
     menu = MainMenu()
     menu.run()
-
-
-
-

@@ -2,72 +2,72 @@
 
 class Admin:
     def __init__(self):
-        self.AdminID = '' 
-        self.FirstName = '' 
-        self.LastName = '' 
-        self.Email = '' 
-        self.PhoneNumber = '' 
-        self.Username = '' 
-        self.Password = ''
-        self.Role = ''
-        self.JoinDate = ''
+        self.__AdminID = '' 
+        self.__FirstName = '' 
+        self.__LastName = '' 
+        self.__Email = '' 
+        self.__PhoneNumber = '' 
+        self.__Username = '' 
+        self.__Password = ''
+        self.__Role = ''
+        self.__JoinDate = ''
 
 
     # Setter
 
     def setAdminID(self,AdminID):
-        self.AdminID = AdminID
+        self.__AdminID = AdminID
 
     def setFirstName(self,FirstName):
-        self.FirstName = FirstName
+        self.__FirstName = FirstName
     
     def setLastName(self,LastName):
-        self.LastName = LastName
+        self.__LastName = LastName
 
     def setEmail(self,Email):
-        self.Email = Email
+        self.__Email = Email
 
     def setPhoneNumber(self,PhoneNumber):
-        self.PhoneNumber = PhoneNumber
+        self.__PhoneNumber = PhoneNumber
 
     def setUsername(self,Username):
-        self.Username = Username
+        self.__Username = Username
 
     def setPassword(self,Password):
-        self.Password = Password
+        self.__Password = Password
 
     def setRole(self,Role):
-        self.Role = Role
+        self.__Role = Role
 
     def setJoinDate(self,JoinDate):
-        self.JoinDate = JoinDate
+        self.__JoinDate = JoinDate
 
 
         # Getter
 
     def getAdminID(self):
-        return self.AdminID
+        return self.__AdminID
 
     def getFirstName(self):
-        return self.FirstName
+        return self.__FirstName
     
     def getLastName(self):
-        return self.LastName
+        return self.__LastName
 
     def getEmail(self):
-        return self.Email 
+        return self.__Email 
 
     def getPhoneNumber(self):
-        return self.PhoneNumber
+        return self.__PhoneNumber
 
     def getUsername(self):
-        return self.Username 
+        return self.__Username 
 
     def getPassword(self):
-        return self.Password 
+        return self.__Password 
 
     def getRole(self):
-        return self.Role 
+        return self.__Role 
 
     def getJoinDate(self):
-        return self.JoinDate
+        return self.__JoinDate

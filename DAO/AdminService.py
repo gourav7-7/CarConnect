@@ -39,7 +39,7 @@ class AdminService(IAdminService):
         conn = DBconnutil.getConnection(DBProprtyUtil.getConnectionString('CarConnect'))
         stmt = conn.cursor()
         self.admindata = adminData
-
+        self.adminid = self.admindata.getAdminID()
         stmt.execute(f"select * from admin where AdminID = {self.adminid}")
         exists = stmt.fetchone()
         if exists is None:
