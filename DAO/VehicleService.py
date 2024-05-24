@@ -16,10 +16,10 @@ class VehicleService(IVehicleService):
         stmt.close()
         return row
     
-    def GetAvailableVehicles(self):
+    def GetAllVehicles(self):
         conn = DBconnutil.getConnection(DBProprtyUtil.getConnectionString('CarConnect'))
         stmt = conn.cursor()
-        stmt.execute(f"select * from vehicle where Availability = 1")
+        stmt.execute(f"select * from vehicle")
         row = stmt.fetchall()
         stmt.close()
         if row:
